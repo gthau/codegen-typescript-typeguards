@@ -8,7 +8,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "run:example": "graphql-codegen --config codegen.yml"
+    "build": "tsc",
+    "generate": "graphql-codegen --config codegen.yml",
+    "start": "yarn build && yarn generate"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
