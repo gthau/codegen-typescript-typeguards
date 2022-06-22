@@ -2,7 +2,7 @@
   "name": "codegen-typescript-typeguards",
   "version": "1.0.0",
   "description": "Generate TypeScript typeguards for all GraphQL types",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "repository": "https://github.com/gthau/codegen-typescript-typeguards.git",
   "author": "Ghislain Thau <ghislain.thau@gmail.com>",
   "license": "MIT",
