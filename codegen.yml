@@ -1,0 +1,6 @@
+schema: ./src/schema/*.graphql
+generates:
+  generated.ts:
+    plugins:
+      - "typescript"
+      - "dist/index.js"
