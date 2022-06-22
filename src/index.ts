@@ -1,24 +1,25 @@
 import { PluginFunction, Types } from '@graphql-codegen/plugin-helpers';
-import { GraphQLObjectType, GraphQLSchema, isObjectType } from 'graphql';
+import { GraphQLSchema, isObjectType } from 'graphql';
 
 export const plugin: PluginFunction = (
   schema: GraphQLSchema,
   rawDocuments: Types.DocumentFile[],
   config,
 ) => {
-  const types = [];
+  // keep types in a map, first letter of the typename is always uppercased by the "typescript" plugin
+  const types = new Map<string, string>();
   for (const [typeName, namedType] of Object.entries(schema.getTypeMap())) {
     if (isObjectType(namedType)) {
-      types.push(makeTypeguard(typeName));
+      const name = capitalize(typeName);
+      types.set(name, makeTypeguard(name));
     }
   }
-  return types.join('\n\n');
+  return [...types.values()].join('\n\n');
 };
 
 function makeTypeguard(typeName: string) {
-  const name = capitalize(typeName);
-  return `export function is${name}(v: any): v is ${name} {
-  return v?.__typename === '${name}';
+  return `export function is${typeName}(v: any): v is ${typeName} {
+  return v?.__typename === '${typeName}';
 }`;
 }
 
