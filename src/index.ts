@@ -1,4 +1,5 @@
 import { PluginFunction, Types } from '@graphql-codegen/plugin-helpers';
+import { convertFactory } from '@graphql-codegen/visitor-plugin-common';
 import { GraphQLSchema, isObjectType } from 'graphql';
 
 const typesToIgnore = [
@@ -20,12 +21,15 @@ export const plugin: PluginFunction = (
   rawDocuments: Types.DocumentFile[],
   config,
 ) => {
-  const { typesPrefix = '', typesSuffix = '' } = config;
-  // keep types in a map, first letter of the typename is always uppercased by the "typescript" plugin
+  const { typesPrefix = '', typesSuffix = '', namingConvention } = config;
+  const typeNameConverter = convertFactory({ namingConvention });
+
+  // keep types in a map, because of namingConvention, there might be duplicated typescript types
   const types = new Map<string, string>();
   for (const [typeName, namedType] of Object.entries(schema.getTypeMap())) {
     if (isObjectType(namedType) && !typesToIgnore.includes(typeName)) {
-      const tsTypeName = computeTypeName(typeName, { typesPrefix, typesSuffix });
+      const nameAccordingToConvention = typeNameConverter(typeName);
+      const tsTypeName = addPrefixSuffix(nameAccordingToConvention, { typesPrefix, typesSuffix });
       types.set(tsTypeName, makeTypeguard(typeName, tsTypeName));
     }
   }
@@ -38,6 +42,6 @@ function makeTypeguard(gqlTypeName: string, tsTypeName: string) {
 }`;
 }
 
-function computeTypeName(val: string, { typesPrefix, typesSuffix }: Config): string {
+function addPrefixSuffix(val: string, { typesPrefix, typesSuffix }: Config): string {
   return `${typesPrefix}${val}${typesSuffix}`;
 }
