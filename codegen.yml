@@ -1,6 +1,14 @@
-schema: ./src/schema/*.graphql
+schema: ./src/schema/test.graphql
+documents: ./src/schema/document.graphql
 generates:
   generated.ts:
     plugins:
       - "typescript"
+      - typescript-operations
+      - typed-document-node
       - "dist/index.js"
+    config:
+      declarationKind: class
+      # dedupeFragments: true
+      # exportFragmentSpreadSubTypes: true
+      # inlineFragmentTypes: combine

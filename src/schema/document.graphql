@@ -1,0 +1,18 @@
+fragment otherType on OtherType {
+  otherField
+}
+
+fragment lessDummyOutput on LessDummyOutput {
+  field1 {
+    myField
+  }
+  field2 {
+    ...otherType
+  }
+}
+
+query lessDummy($input: String!) {
+  lessDummy(input: $input) {
+    ...lessDummyOutput
+  }
+}

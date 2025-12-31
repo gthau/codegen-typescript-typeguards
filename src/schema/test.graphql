@@ -2,14 +2,31 @@ type MyType {
   myField: String!
 }
 
-type otherType {
-  otherField: String
-}
+# type otherType {
+#   otherField: String
+# }
 
 type OtherType {
   otherField: String
 }
 
+type LessDummyOutput {
+  field1: MyType
+  field2: OtherType
+}
+
 type Query {
   dummy: String
+  lessDummy(input: String!): LessDummyOutput
+}
+
+fragment lessDummyOutput on LessDummyOutput {
+  field1
+  field2
+}
+
+query lessDummy($input: String!) {
+  lessDummy(input: $input) {
+    ...lessDummyOutput
+  }
 }
