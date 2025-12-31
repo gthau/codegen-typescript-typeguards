@@ -1,7 +1,7 @@
 {
   "name": "codegen-typescript-typeguards",
-  "version": "1.0.0",
-  "description": "Generate TypeScript typeguards for all GraphQL types",
+  "version": "1.1.0",
+  "description": "Generate TypeScript typeguards for all GraphQL types and fragments",
   "main": "dist/index.js",
   "repository": "https://github.com/gthau/codegen-typescript-typeguards.git",
   "author": "Ghislain Thau <ghislain.thau@gmail.com>",
@@ -13,11 +13,12 @@
     "start": "yarn build && yarn generate"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/plugin-helpers": "^2.4.2",
-    "@graphql-codegen/typescript": "^2.5.1",
-    "@graphql-codegen/visitor-plugin-common": "^2.9.1",
+    "@graphql-codegen/cli": "6.1.0",
+    "@graphql-codegen/plugin-helpers": "6.1.0",
+    "@graphql-codegen/typescript": "5.0.7",
+    "@graphql-codegen/visitor-plugin-common": "6.2.2",
     "change-case-all": "^1.0.14",
-    "graphql": "^16.5.0"
+    "graphql": "^16.5.0",
+    "typescript": ">= 4.8.4"
   }
 }
