@@ -5,29 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "program": "${file}",
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ]
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "Run example",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "name": "Launch",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeVersion": "22",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["run:example"],
-      "outFiles": [
-        "${workspaceFolder}/dist/*.js"
-      ]
+      "runtimeArgs": ["start"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
     }
   ]
 }
